@@ -1,17 +1,29 @@
 {
-  "name": "backend-test",
-  "version": "0.0.0",
-  "private": true,
+  "name": "backend",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "dev": "nodemon src/index.js --exec babel-node",
+    "build": "babel src -d dist",
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tratten/twitter-propagation-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tratten/twitter-propagation-backend/issues"
+  },
+  "homepage": "https://github.com/Tratten/twitter-propagation-backend#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.3",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "morgan": "~1.9.0",
-    "pg": "^7.4.1",
-    "sequelize": "^4.37.6"
+    "express": "^4.16.3"
   }
 }
