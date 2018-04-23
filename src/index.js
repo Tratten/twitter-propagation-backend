@@ -5,7 +5,6 @@ const PORT = process.env.PORT || 3000;
 
 app.set('port', PORT);
 
-
 // This is done to make it possible to reuse the http-server.
 // For example to run both http/https.
 const server = http.createServer(app);

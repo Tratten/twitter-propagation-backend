@@ -7,18 +7,20 @@ if (env == 'development') {
   const sequelize = new Sequelize(
     'infosak_development_database',
     'postgres',
-    'postgres'. {
+    'postgres', {
       dialect: 'postgres',
     });
 } else {
-  const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  const sequelize = new Sequelize(
+    process.env.DATABASE_URL, {
     dialect: 'postgres',
   });
 }
 
 const models = {
-  Tweet: sequelize.import('./tweets'),
-  Retweeter: sequelize.import('./retweeter'),
+  //Tweet: sequelize.import('./tweet'),
+  //Retweet: sequelize.import('./retweet'),
+  User: sequelize.import('./user'),
 }
 
 
