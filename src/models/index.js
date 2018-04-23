@@ -1,32 +1,29 @@
 import Sequelize from 'sequelize';
 
+import config from '../config/config';
+
 const env = process.env.NODE_ENV || 'development';
 
-// Use local database whilst not in prod env.
-if (env == 'development') {
-  const sequelize = new Sequelize(
-    'infosak_development_database',
-    'postgres',
-    'postgres', {
-      dialect: 'postgres',
-    });
+if (config[env].use_env_variable) {
+  var sequelize = new Sequelize(
+    process.env[config[env].use_env_variable],
+    config[env]
+  );
 } else {
-  const sequelize = new Sequelize(
-    process.env.DATABASE_URL, {
-    dialect: 'postgres',
-  });
+  var sequelize = new Sequelize(
+    config[env].database,
+    config[env].username,
+    config[env].password,
+    config[env]
+  );
 }
 
 const models = {
-  //Tweet: sequelize.import('./tweet'),
-  //Retweet: sequelize.import('./retweet'),
-  User: sequelize.import('./user'),
+  Users: sequelize.import('./users'),
 }
 
-
-// Create all associations.
 Object.keys(models).forEach(modelName => {
-  if ('associate' in models[modelName]) {
+  if (models[modelName].associate) {
     models[modelName].associate(models);
   }
 });
