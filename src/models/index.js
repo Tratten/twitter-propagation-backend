@@ -19,7 +19,9 @@ if (config[env].use_env_variable) {
 }
 
 const models = {
-  Users: sequelize.import('./users'),
+  User: sequelize.import('./user'),
+  Tweet: sequelize.import('./tweet'),
+  Retweet: sequelize.import('./retweet'),
 }
 
 Object.keys(models).forEach(modelName => {

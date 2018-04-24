@@ -1,11 +1,12 @@
 export default (sequelize, DataTypes) => {
-  var User = sequelize.define('User', {
+  const User = sequelize.define('users', {
     id: {
-      allowNull: false,
-      primaryKey: true,
       type: DataTypes.UUID,
+      primaryKey: true,
       defaultValue: DataTypes.UUIDV4
-    }
+      allowNull: false,
+      autoIncrement: false,
+    },
     twitterId: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -17,7 +18,8 @@ export default (sequelize, DataTypes) => {
   });
 
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Tweet)
+    User.hasMany(models.Retweet)
   };
 
   return User;
