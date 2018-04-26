@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const Tweet = sequelize.define('tweet', {
+  const Retweet = sequelize.define('retweet', {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
@@ -7,14 +7,12 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: false,
     },
-  }, {
-    // class methods
-  });
+  }, {});
 
-  Tweet.associate = (models) => {
-    Tweet.belongsTo(models.User)
-    Tweet.hasMany(models.Retweet)
+  Retweet.associate = (models) => {
+    Retweet.belongsTo(models.User);
+    Retweet.belongsTo(models.Tweet);
   };
 
-  return Tweet;
+  return Retweet;
 };

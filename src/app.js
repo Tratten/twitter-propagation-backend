@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
-import routes from './routes';
+import apiRoutes from './api/routes';
 
 const app = express();
 
-app.use('/', routes);
+app.use('/api', apiRoutes);
 
 /**
  * Middlewares

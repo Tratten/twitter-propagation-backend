@@ -12,14 +12,12 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    location: DataTypes.STRING
-  }, {
-    // class methods
-  });
+    location: DataTypes.STRING,
+  }, {});
 
-  User.associate = function(models) {
-    User.hasMany(models.Tweet)
-    User.hasMany(models.Retweet)
+  User.associate = (models) => {
+    User.hasMany(models.Tweet);
+    User.hasMany(models.Retweet);
   };
 
   return User;
