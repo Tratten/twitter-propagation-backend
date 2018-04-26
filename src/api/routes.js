@@ -1,50 +1,76 @@
-import { Router } from 'express';
-import db from '../db/models';
-import { getTweet } from './twitter';
-import { createWithExistingAuthor } from '../db/models/tweet/queries';
+import { Router } from "express";
+import db from "../db/models";
+import { getTweet } from "./twitter";
 
 const routes = Router();
 
 /**
  * GET home page
  */
-routes.get('/tweet/:id', (req, res) => {
+routes.get("/tweet/:id", (req, res) => {
   getTweet(req.params.id)
-    .then((tweet) => {
+    .then(tweet => {
       // Tweet specific data
-      const tweet_id = tweet.id;
-      const text = tweet.text;
-
-      // User specific data
-      const user_name = tweet.user.name;
-      const user_id = tweet.user.id;
-      const sceen_name = tweet.user.screen_name;
-      const location = tweet.user.location ? tweet.user.location : false;
-
+      const tweet_data = {
+        id: tweet.id_str,
+        text: tweet.text,
+        user_name: tweet.user.name,
+        twitter_id: tweet.user.id_str,
+        screen_name: tweet.user.screen_name,
+        location: tweet.user.location ? tweet.user.location : false
+      };
       // Check if tweet exists in our db
-      db.User.create({
-        location,
-        twitterId: user_id.toString(),
+      db.User.findOrCreate({
+        where: {
+          twitter_id: tweet_data.twitter_id
+        },
+        defaults: {
+          location: tweet_data.location
+        }
       })
-        .then(() => {
-          createWithExistingAuthor(tweet_id.toString(), user_id.toString());
+        .then(([instance, created]) => {
+          return db.Tweet.findOrCreate({
+            where: {
+              id: tweet_data.id
+            },
+            defaults: {
+              twitter_user_id: instance.dataValues.id
+            }
+          });
         })
+        .then(tweet => {
+          res.status(200).send({
+            id: tweet_data.id,
+            text: tweet_data.text,
+            twitter_id: tweet_data.twitter_id,
+            user_name: tweet_data.user_name,
+            location: tweet_data.location,
+            screen_name: tweet_data.screen_name
+          });
+        })
+        .catch(error => {
+          res.status(error).send({
+            error: "Something went wrong with creating user or tweet."
+          });
+        });
     })
-    .catch((error) => {
-      // Only gets 404 errors from twitter-handler.
+    .catch(error => {
       res.status(error).send({
-        error: 'Tweet not found.',
-      })
+        error: "Could not find tweet."
+      });
     });
 });
 
-routes.get('/tweet/:id/retweet', (req, res) => {
-  // Get retweets from twitter api for specific tweet.
-
-
-  // Store the users, and then get their locations
-
-  // return the locations
+routes.get("/tweet/:id/retweets", (req, res) => {
+  db.Tweet.findOne({
+    where: {
+      id: req.params.id
+    }
+  }).then(tweet => {
+    // Lookup retweets.
+    // Hämta alla ids, och sedan alla locations
+    console.log(tweet);
+  });
 });
 
 export default routes;

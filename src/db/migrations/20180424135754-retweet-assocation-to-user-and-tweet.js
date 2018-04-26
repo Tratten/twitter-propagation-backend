@@ -1,43 +1,27 @@
-'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn(
-      'retweet',
-      'tweetId',
-      {
+    return queryInterface
+      .addColumn("retweets", "tweet_id", {
         type: Sequelize.STRING,
         references: {
-          model: 'tweet',
-          key: 'id',
-        },
-      }
-    )
+          model: "tweets",
+          key: "id"
+        }
+      })
       .then(() => {
-        return queryInterface.addColumn(
-          'retweet',
-          'userId',
-          {
-            type: Sequelize.UUID,
-            references: {
-              model: 'user',
-              key: 'id',
-            },
+        return queryInterface.addColumn("retweets", "twitter_user_id", {
+          type: Sequelize.UUID,
+          references: {
+            model: "twitter_users",
+            key: "id"
           }
-        );
+        });
       });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn(
-      'retweet',
-      'tweetId',
-    )
-      .then(() => {
-        return queryInterface.removeColumn(
-          'retweet',
-          'userId',
-        )
-      });
+    return queryInterface.removeColumn("retweets", "tweet_id").then(() => {
+      return queryInterface.removeColumn("retweets", "twitter_user_id");
+    });
   }
 };

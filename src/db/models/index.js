@@ -1,8 +1,8 @@
-import Sequelize from 'sequelize';
+import Sequelize from "sequelize";
 
-import config from '../../config/database';
+import config from "../../config/database";
 
-const env = process.env.NODE_ENV || 'development';
+const env = process.env.NODE_ENV || "development";
 
 if (config[env].use_env_variable) {
   var sequelize = new Sequelize(
@@ -19,10 +19,10 @@ if (config[env].use_env_variable) {
 }
 
 const models = {
-  User: sequelize.import('./user'),
-  Tweet: sequelize.import('./tweet'),
-  Retweet: sequelize.import('./retweet'),
-}
+  User: sequelize.import("./twitter_user"),
+  Tweet: sequelize.import("./tweet"),
+  Retweet: sequelize.import("./retweet")
+};
 
 Object.keys(models).forEach(modelName => {
   if (models[modelName].associate) {
