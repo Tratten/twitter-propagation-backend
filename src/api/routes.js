@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import db from '../db/models';
 import { getTweet } from './twitter';
+import { createWithExistingAuthor } from '../db/models/tweet/queries';
 
 const routes = Router();
 
@@ -16,43 +17,30 @@ routes.get('/tweet/:id', (req, res) => {
 
       // User specific data
       const user_name = tweet.user.name;
-      const user_id = tweet.user.id.toString();
+      const user_id = tweet.user.id;
       const sceen_name = tweet.user.screen_name;
-      const location = tweet.user.location;
+      const location = tweet.user.location ? tweet.user.location : false;
 
-      console.log('user_id:', user_id);
-      // Db object
-      db.User.findOrCreate({
-        where: {
-          twitterId: user_id,
-        },
-      })
-        .then((user) => {
-          user.update({
-            location
-          })
-          console.log(user);
-        });
-
-
-      res.status(200).send({
-        text,
-        user,
-        sceen_name,
+      // Check if tweet exists in our db
+      db.User.create({
         location,
-      });
+        twitterId: user_id.toString(),
+      })
+        .then(() => {
+          createWithExistingAuthor(tweet_id.toString(), user_id.toString());
+        })
     })
     .catch((error) => {
       // Only gets 404 errors from twitter-handler.
       res.status(error).send({
-        message: 'Tweet not found.',
+        error: 'Tweet not found.',
       })
     });
 });
 
-
 routes.get('/tweet/:id/retweet', (req, res) => {
   // Get retweets from twitter api for specific tweet.
+
 
   // Store the users, and then get their locations
 

@@ -1,16 +1,15 @@
 export default (sequelize, DataTypes) => {
   const Tweet = sequelize.define('tweet', {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.STRING,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       autoIncrement: false,
     },
   }, {});
 
   Tweet.associate = (models) => {
-    Tweet.belongsTo(models.User);
+    Tweet.belongsTo(models.User, { as: 'author' });
     Tweet.hasMany(models.Retweet);
   };
 

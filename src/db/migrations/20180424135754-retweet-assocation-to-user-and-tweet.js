@@ -6,26 +6,26 @@ module.exports = {
       'retweet',
       'tweetId',
       {
-        type: Sequelize.UUID,
+        type: Sequelize.STRING,
         references: {
           model: 'tweet',
           key: 'id',
         },
       }
     )
-    .then(() => {
-      return queryInterface.addColumn(
-        'retweet',
-        'userId',
-        {
-          type: Sequelize.UUID,
-          references: {
-            model: 'users',
-            key: 'id',
-          },
-        }
-      );
-    });
+      .then(() => {
+        return queryInterface.addColumn(
+          'retweet',
+          'userId',
+          {
+            type: Sequelize.UUID,
+            references: {
+              model: 'user',
+              key: 'id',
+            },
+          }
+        );
+      });
   },
 
   down: (queryInterface, Sequelize) => {
@@ -33,11 +33,11 @@ module.exports = {
       'retweet',
       'tweetId',
     )
-    .then(() => {
-      return queryInterface.removeColumn(
-        'retweet',
-        'userId',
-      )
-    });
+      .then(() => {
+        return queryInterface.removeColumn(
+          'retweet',
+          'userId',
+        )
+      });
   }
 };
