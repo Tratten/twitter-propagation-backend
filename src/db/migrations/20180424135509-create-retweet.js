@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable("retweets", {
+    return queryInterface.createTable('retweet', {
       id: {
         type: Sequelize.STRING,
         primaryKey: true,
@@ -19,6 +19,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable("retweets");
+    return queryInterface.dropTable('retweet');
   }
 };

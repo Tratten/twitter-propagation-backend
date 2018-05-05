@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const Tweet = sequelize.define(
-    "tweet",
+    'tweet',
     {
       id: {
         type: DataTypes.STRING,
@@ -10,6 +10,7 @@ export default (sequelize, DataTypes) => {
       }
     },
     {
+      tableName: 'tweet',
       underscored: true
     }
   );

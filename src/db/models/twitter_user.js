@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "twitter_user",
+    'twitter_user',
     {
       id: {
         type: DataTypes.UUID,
@@ -17,6 +17,7 @@ export default (sequelize, DataTypes) => {
       location: DataTypes.STRING
     },
     {
+      tableName: 'twitter_user',
       underscored: true
     }
   );

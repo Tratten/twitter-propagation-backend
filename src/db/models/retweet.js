@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const Retweet = sequelize.define(
-    "retweet",
+    'retweet',
     {
       id: {
         type: DataTypes.UUID,
@@ -11,6 +11,7 @@ export default (sequelize, DataTypes) => {
       }
     },
     {
+      tableName: 'retweet',
       underscored: true
     }
   );

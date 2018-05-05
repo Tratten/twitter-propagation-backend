@@ -1,15 +1,15 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.addColumn("tweets", "twitter_user_id", {
+    return queryInterface.addColumn('tweet', 'twitter_user_id', {
       type: Sequelize.UUID,
       references: {
-        model: "twitter_users",
-        key: "id"
+        model: 'twitter_user',
+        key: 'id'
       }
     });
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn("tweets", "twitter_user_id");
+    return queryInterface.removeColumn('tweet', 'twitter_user_id');
   }
 };
