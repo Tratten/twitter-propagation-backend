@@ -1,7 +1,15 @@
 import { Router } from 'express';
+import Twitter from 'twitter';
 import HttpStatus from 'http-status-codes';
-import db from '../db/models';
-import { getTweet, getRetweeters } from './twitter';
+import getTweet from './tweet';
+import getRetweeters from './retweeters';
+
+export const client = new Twitter({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_ACCESS_SECRET
+});
 
 const routes = Router();
 
@@ -10,9 +18,9 @@ const routes = Router();
  */
 routes.get('/tweet/:id', (req, res) => {
   getTweet(req.params.id)
-    .then(tweet_data => {
+    .then(data => {
       res.status(HttpStatus.OK).send({
-        tweet_data
+        data
       });
     })
     .catch(error => {

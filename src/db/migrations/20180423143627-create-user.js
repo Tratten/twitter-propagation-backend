@@ -2,18 +2,21 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('twitter_user', {
       id: {
-        type: Sequelize.UUID,
-        primaryKey: true,
-        allowNull: false,
-        autoIncrement: false
-      },
-      twitter_id: {
         type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
+        primaryKey: true,
+        allowNull: false
       },
       location: {
         type: Sequelize.STRING
+      },
+      followers_count: {
+        type: Sequelize.INTEGER
+      },
+      friends_count: {
+        type: Sequelize.INTEGER
+      },
+      statuses_count: {
+        type: Sequelize.INTEGER
       },
       created_at: {
         type: Sequelize.DATE,

@@ -1,7 +1,7 @@
-import express from "express";
-import bodyParser from "body-parser";
-import morgan from "morgan";
-import apiRoutes from "./api/routes";
+import express from 'express';
+import bodyParser from 'body-parser';
+import morgan from 'morgan';
+import api from './api';
 
 const app = express();
 
@@ -14,9 +14,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Log all requests to console.
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
 // Routes
-app.use("/api", apiRoutes);
+app.use('/api', api);
 
 export default app;

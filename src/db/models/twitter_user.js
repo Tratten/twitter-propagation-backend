@@ -3,18 +3,14 @@ export default (sequelize, DataTypes) => {
     'twitter_user',
     {
       id: {
-        type: DataTypes.UUID,
-        primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        autoIncrement: false
-      },
-      twitter_id: {
         type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
+        primaryKey: true,
+        allowNull: false
       },
-      location: DataTypes.STRING
+      location: DataTypes.STRING,
+      followers_count: DataTypes.INTEGER,
+      friends_count: DataTypes.INTEGER,
+      statuses_count: DataTypes.INTEGER
     },
     {
       tableName: 'twitter_user',

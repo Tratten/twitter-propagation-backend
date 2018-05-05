@@ -10,7 +10,7 @@ module.exports = {
       })
       .then(() => {
         return queryInterface.addColumn('retweet', 'twitter_user_id', {
-          type: Sequelize.UUID,
+          type: Sequelize.STRING,
           references: {
             model: 'twitter_user',
             key: 'id'

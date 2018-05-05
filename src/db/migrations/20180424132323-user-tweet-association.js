@@ -1,7 +1,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('tweet', 'twitter_user_id', {
-      type: Sequelize.UUID,
+      type: Sequelize.STRING,
       references: {
         model: 'twitter_user',
         key: 'id'

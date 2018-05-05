@@ -5,4 +5,4 @@ FROM postgres:10-alpine
 ADD create.sql /docker-entrypoint-initdb.d
 
 # Connect psql on this database with
-# docker run -it --rm --network socialmedia_tddd27_default postgres psql -h users-db -U postgres
+# docker run -it --rm --network infosec_tddd17_default postgres psql -h twitter-db -U postgres

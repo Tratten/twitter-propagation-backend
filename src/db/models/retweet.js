@@ -3,11 +3,9 @@ export default (sequelize, DataTypes) => {
     'retweet',
     {
       id: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        autoIncrement: false
+        allowNull: false
       }
     },
     {

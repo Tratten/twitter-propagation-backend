@@ -5,8 +5,17 @@ export default (sequelize, DataTypes) => {
       id: {
         type: DataTypes.STRING,
         primaryKey: true,
-        allowNull: false,
-        autoIncrement: false
+        allowNull: false
+      },
+      retweet_count: {
+        type: DataTypes.INTEGER
+      },
+      favorite_count: {
+        type: DataTypes.INTEGER
+      },
+      cursor: {
+        type: DataTypes.INTEGER,
+        defaultValue: -1
       }
     },
     {

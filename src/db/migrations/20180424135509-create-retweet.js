@@ -4,8 +4,7 @@ module.exports = {
       id: {
         type: Sequelize.STRING,
         primaryKey: true,
-        allowNull: false,
-        autoIncrement: false
+        allowNull: false
       },
       created_at: {
         type: Sequelize.DATE,
